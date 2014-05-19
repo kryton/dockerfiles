@@ -6,7 +6,7 @@ Image for Spark Master.
 Usage
 -----
 
-This should be run via the 'scripts/run.sh', but 'normally' should be run via
+This should be run via the '[scripts/run.sh](../scripts/run.sh)', but 'normally' should be run via
 it takes as a input parameter the IP# of the DNS server, so it can register itself with it
 
 ```

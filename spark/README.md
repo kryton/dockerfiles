@@ -5,16 +5,16 @@ initial version to bring up spark cluster. this will also run a DNS server, as s
 
 to start
 
-scripts/run.sh N <clustername>
+[scripts/run.sh](./scripts/run.sh) N <clustername>
 
 eg.
 
-scripts/run.sh 3 demo
+[scripts/run.sh](./scripts/run.sh) 3 demo
 
 to stop
 
-scripts/nuke.sh N <clustername>
+[scripts/nuke.sh](./scripts/nuke.sh) N <clustername>
 
 eg.
 
-scripts/nuke.sh 3 demo
+[scripts/nuke.sh](./scripts/nuke.sh) 3 demo
