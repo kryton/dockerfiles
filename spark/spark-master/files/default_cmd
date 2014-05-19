@@ -1,5 +1,6 @@
 #!/bin/bash
-DNS_SERVER=${1}
+PREFIX=${1-cluster}
+DNS_SERVER=dns.${PREFIX}.spark
 IP=$(ip -o -4 addr list eth0 | perl -n -e 'if (m{inet\s([\d\.]+)\/\d+\s}xms) { print $1 }')
 export SPARK_MASTER_IP=$(hostname -f)
 export SPARK_PUBLIC_DNS=$DNS_SERVER
@@ -7,7 +8,6 @@ env
 
 curl  -H 'X-Auth-Token: mySecurityToken2' -X POST http://$DNS_SERVER/dnsmasq-rest-api/zones/spark/$IP/$(hostname -f)
 curl  -H 'X-Auth-Token: mySecurityToken2' -X POST http://$DNS_SERVER/dnsmasq-rest-api/reload
-#/usr/sbin/sshd -p $SSHD_PORT
 
 # Start Spark Master
 echo "starting Spark Master"

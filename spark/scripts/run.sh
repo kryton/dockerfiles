@@ -23,7 +23,7 @@ sleep 10
 
 docker run  --dns $DNS_SERVER \
     -d -h master.${PREFIX}.spark \
-    --name ${PREFIX}_master $IMAGEMASTER start $DNS_SERVER
+    --name ${PREFIX}_master $IMAGEMASTER start ${PREFIX}
 
 MASTER_IP=$(./ipof.sh ${PREFIX}_master )
 #echo master IP is ${MASTER_IP}

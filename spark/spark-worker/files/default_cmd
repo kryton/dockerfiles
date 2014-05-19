@@ -1,11 +1,7 @@
 #!/bin/bash
 
-if [[ ${#@} = 0 ]]; then
-    echo you need to pass in the IP of the  master
-    exit 1
-fi
-PREFIX=${1}
-SPARK_WORKER_NUM=${2}
+PREFIX=${1-cluster}
+SPARK_WORKER_NUM=${2-1}
 #SPARK_MASTER_IP=${3}
 SPARK_MASTER_IP=master.${PREFIX}.spark
 export SPARK_MASTER_PORT=${3-7077}
