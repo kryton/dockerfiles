@@ -37,4 +37,4 @@ for (( instance=$HOW_MANY; $instance > 1; instance=$instance - 1 )); do
     docker run --dns $DNS_SERVER -h worker${instance}.${PREFIX}.spark -d --name ${PREFIX}${instance} $IMAGE start $PREFIX $instance 
 
 done
-docker attach ${PREFIX}_master
+#docker attach ${PREFIX}_master
