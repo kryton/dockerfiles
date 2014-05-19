@@ -8,8 +8,8 @@ PREFIX=${1}
 SPARK_WORKER_NUM=${2}
 #SPARK_MASTER_IP=${3}
 SPARK_MASTER_IP=master.${PREFIX}.spark
-SPARK_MASTER_PORT=${3-7077}
-SPARK_WORKER_CORES=1
+export SPARK_MASTER_PORT=${3-7077}
+export SPARK_WORKER_CORES=1
 
 IP=$(ip -o -4 addr list eth0 | perl -n -e 'if (m{inet\s([\d\.]+)\/\d+\s}xms) { print $1 }')
 

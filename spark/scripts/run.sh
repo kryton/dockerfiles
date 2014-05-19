@@ -26,15 +26,24 @@ docker run  --dns $DNS_SERVER \
     --name ${PREFIX}_master $IMAGEMASTER start $DNS_SERVER
 
 MASTER_IP=$(./ipof.sh ${PREFIX}_master )
-echo master IP is ${MASTER_IP}
+#echo master IP is ${MASTER_IP}
 
+dockerFWD=8080
+SSH_FWDS="-L8080:${MASTER_IP}:8080"
 docker run --dns $DNS_SERVER \
     -h worker1.${PREFIX}.spark \
     -d --name ${PREFIX}1 $IMAGE start $PREFIX 1 
 
+IP_Worker=$(./ipof.sh ${PREFIX}1 )
+dockerFWD=$(($dockerFWD + 1))
+SSH_FWDS="$SSH_FWDS -L${dockerFWD}:${IP_Worker}:8888"
 
 for (( instance=$HOW_MANY; $instance > 1; instance=$instance - 1 )); do
     docker run --dns $DNS_SERVER -h worker${instance}.${PREFIX}.spark -d --name ${PREFIX}${instance} $IMAGE start $PREFIX $instance 
 
+    IP_Worker=$(./ipof.sh ${PREFIX}1 )
+    dockerFWD=$(($dockerFWD + 1))
+    SSH_FWDS="$SSH_FWDS -L${dockerFWD}:${IP_Worker}:8888"
 done
 #docker attach ${PREFIX}_master
+echo "SSH Fowards $SSH_FWDS"
