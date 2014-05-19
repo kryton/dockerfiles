@@ -2,7 +2,7 @@
 # Modified based on amplab/docker-scripts <github.com/amplab/docker-scripts>
 #
 #
-FROM lijin/spark-base:0.9.1
+FROM kryton/spark-base:0.9.1
 
 # ENV SPARK_WORKER_CORES
 # ENV SPARK_WORKER_MEMORY
@@ -23,5 +23,7 @@ FROM lijin/spark-base:0.9.1
 # ENV SPARK_JAVA_OPTS
 
 ADD files /root/spark_worker_files
-
-CMD ["/root/spark_worker_files/default_cmd"]
+ADD files/default_cmd /usr/local/bin/start
+#ENV SPARK_WORKER_UI 8888
+EXPOSE 22 8888 7078
+CMD ["/usr/local/bin/start"]

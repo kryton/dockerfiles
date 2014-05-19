@@ -2,7 +2,7 @@ FROM dockerfile/ubuntu
 
 MAINTAINER Ian Holsman, kryton@gmail.com
 
-RUN apt-get -y install python-software-properties
+#RUN apt-get -y install python-software-properties
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update
 RUN apt-get -y upgrade

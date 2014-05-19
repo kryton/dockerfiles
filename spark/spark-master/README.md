@@ -28,7 +28,7 @@ $ CID=$(sudo docker run -d -h $MASTER_FQDN\
   -e "SPARK_PUBLIC_DNS=$SPARK_PUBLIC_DNS"\
   -p $SPARK_MASTER_PORT:$SPARK_MASTER_PORT\
   -p $SPARK_MASTER_WEBUI_PORT:$SPARK_MASTER_WEBUI_PORT\
-  lijin/spark-master:0.9.1)
+  kryton/spark-master:0.9.1)
 $ MASTER_IP=`sudo docker inspect --format='{{.NetworkSettings.IPAddress}}' $CID`
 $ curl -X POST http://$DNS_SERVER/dnsmasq-rest-api/zones/spark/$IP/$MASTER_FQDN
 $ curl -X POST http://$DNS_SERVER/dnsmasq-rest-api/reload

@@ -32,5 +32,5 @@ $ sudo docker run -d\
   -e "SPARK_PUBLIC_DNS=$SPARK_PUBLIC_DNS"\
   -e "SPARK_JAVA_OPTS=$SPARK_JAVA_OPTS"\
   -p $SPARK_UI_PORT:$SPARK_UI_PORT\
-  lijin/spark-app-sparkpi-client:0.9.1
+  kryton/spark-app-sparkpi-client:0.9.1
 ```

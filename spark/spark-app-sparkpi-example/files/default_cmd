@@ -1,15 +1,22 @@
 #!/bin/bash
 
-env
+if [[ ${#@} = 0 ]]; then
+    echo you need to pass in the prefix of the spark cluster
+    exit 1
+fi
+SPARK_PREFIX=${1-spark}
+SPARK_MASTER_IP=master.${1}.spark
+SPARK_MASTER_PORT=${2-7077}
+DNS_SERVER=dns.${1}.spark
 
-/usr/sbin/sshd
+env
 
 IP=$(ip -o -4 addr list eth0 | perl -n -e 'if (m{inet\s([\d\.]+)\/\d+\s}xms) { print $1 }')
 echo "Container IP=$IP"
 
 # Update DNS
-#curl -X DELETE http://$DNS_SERVER/dnsmasq-rest-api/zones/myZone
-curl -X POST http://$DNS_SERVER/dnsmasq-rest-api/zones/myZone/$IP/`hostname -f`
+
+curl -X POST http://$DNS_SERVER/dnsmasq-rest-api/zones/spark/$IP/`hostname -f`
 curl -X POST http://$DNS_SERVER/dnsmasq-rest-api/reload
 
 # Start Spark application example: SparkPi

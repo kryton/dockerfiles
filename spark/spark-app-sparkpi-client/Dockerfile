@@ -1,6 +1,6 @@
 # Spark standalone application SparkPi in client deploy mode
 #
-FROM lijin/spark-base:0.9.1
+FROM kryton/spark-base:0.9.1
 
 # Override the following
 # ENV SPARK_MASTER_IP

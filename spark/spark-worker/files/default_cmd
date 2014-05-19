@@ -1,13 +1,34 @@
 #!/bin/bash
 
+if [[ ${#@} = 0 ]]; then
+    echo you need to pass in the IP of the  master
+    exit 1
+fi
+PREFIX=${1}
+SPARK_WORKER_NUM=${2}
+#SPARK_MASTER_IP=${3}
+SPARK_MASTER_IP=master.${PREFIX}.spark
+SPARK_MASTER_PORT=${3-7077}
+SPARK_WORKER_CORES=1
+
+IP=$(ip -o -4 addr list eth0 | perl -n -e 'if (m{inet\s([\d\.]+)\/\d+\s}xms) { print $1 }')
+
+curl  -H 'X-Auth-Token: mySecurityToken2' -X POST http://dns.${PREFIX}.spark/dnsmasq-rest-api/zones/spark/$IP/$(hostname -f)
+curl  -H 'X-Auth-Token: mySecurityToken2' -X POST http://dns.${PREFIX}.spark/dnsmasq-rest-api/reload
+
 env
 
-/usr/sbin/sshd -p $SSHD_PORT
+#echo starting SSH
+#/usr/sbin/sshd -p $SSHD_PORT
 
 # Start Spark Worker
 echo "starting Spark Worker"
 #ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-$SPARK_HOME/sbin/start-slave.sh 1 spark://$SPARK_MASTER_IP:$SPARK_MASTER_PORT
+export SPARK_WORKER_INSTANCES=1
+export MASTER=spark://${SPARK_MASTER_IP}:${SPARK_MASTER_PORT}
+export SPARK_WORKER_PORT=7078
+export SPARK_WORKER_WEBUI_PORT=8888
+$SPARK_HOME/sbin/start-slave.sh ${SPARK_WORKER_NUM} spark://${SPARK_MASTER_IP}:${SPARK_MASTER_PORT}
 
 while [ 1 ];
 do

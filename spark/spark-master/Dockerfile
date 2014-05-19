@@ -1,7 +1,7 @@
 # Spark master
 # Modified based on amplab/docker-scripts <github.com/amplab/docker-scripts>
 #
-FROM lijin/spark-base:0.9.1
+FROM kryton/spark-base:0.9.1
 
 # Override the following
 # ENV SPARK_PUBLIC_DNS
@@ -14,6 +14,6 @@ FROM lijin/spark-base:0.9.1
 # ENV SPARK_LOCAL_IP # Required if hostname resolves to public IP
 # ENV SPARK_JAVA_OPTS
 
-ADD files /root/spark_master_files
-
-CMD ["/root/spark_master_files/default_cmd"]
+ADD files/default_cmd /usr/local/bin/start
+EXPOSE 7077 8080
+CMD ["/usr/local/bin/start"]
