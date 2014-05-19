@@ -25,5 +25,5 @@ FROM kryton/spark-base:0.9.1
 ADD files /root/spark_worker_files
 ADD files/default_cmd /usr/local/bin/start
 #ENV SPARK_WORKER_UI 8888
-EXPOSE 22 8888 7078
+EXPOSE 8888 7078
 CMD ["/usr/local/bin/start"]
